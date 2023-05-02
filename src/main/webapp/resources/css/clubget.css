@@ -1,0 +1,290 @@
+.content {
+	background-color: #f6f6f696;
+}
+
+a {
+	cursor: pointer;
+}
+
+.feed-main {
+	display: flex;
+	justify-content: center;
+}
+
+.myfeed {
+	max-width: 620px;
+}
+
+.story {
+	height: auto;
+	display: flex;
+	padding: 45px 0 20px;
+	justify-content: space-around;
+}
+
+.myinfo {
+	width: 250px;
+	height: 400px;
+}
+
+.story-img, .media .info-img {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: white 2px solid;
+	padding: 0;
+}
+
+.story-active {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	border: #cceabf 2px solid;
+}
+
+.myboard {
+	width: 470px;
+	margin: auto;
+	margin-top: 30px;
+	background-color: white;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.board-btnbox {
+	margin: 0;
+	padding: 10px;
+}
+
+.board-btnbox li {
+	padding-right: 8px;
+}
+
+.board-btnbox li:nth-of-type(4) {
+	float: right;
+	padding-right: 0;
+	margin-right: -23px;
+}
+
+.reply-view, .reply-add {
+	color: #757575;
+	font-size: 15px;
+}
+
+.reply-view p {
+	padding: 5px 0 10px;
+	margin: 0;
+}
+
+.reply-add {
+	border: none;
+	width: 100%;
+	margin-left: -2px;
+	padding-bottom: 10px;
+}
+
+.feed-writer, .reply-view:hover, .feed-writer:hover {
+	color: #fdb3b6;
+}
+
+.reply-addbtn {
+	float: right;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	color: #757575;
+}
+
+.club-write {
+	height: 130px;
+}
+
+.club-write p {
+	cursor: pointer;
+	padding: 20px 20px 35px;
+	color: #b1b1b1;
+}
+
+.club-board-btnbox {
+	display: flex;
+	justify-content: space-evenly;
+	padding: 0;
+	margin: 0;
+}
+
+.club-board-btnbox li {
+	list-style: none;
+}
+
+.club-board-btnbox a, .club-notice a, .write-option {
+	color: #b1b1b1;
+}
+
+.clubboard-header {
+	padding: 15px;
+	height: auto;
+}
+
+.clubboard-base {
+	padding: 15px;
+}
+
+.clubboard {
+	padding-top: 10px;
+}
+
+.club-search {
+	height: 50px;
+}
+
+.club-search-input {
+	height: 100%;
+	width: 100%;
+	font-size: 15px;
+	border: none;
+	padding: 0 20px;
+}
+
+.club-search-input::placeholder, textarea::placeholder {
+	color: #b1b1b1;
+}
+
+.club-search i {
+	position: absolute;
+	right: 14px;
+	top: 13px;
+	font-size: 22px;
+	cursor: pointer;
+	color: #b1b1b1;
+}
+
+.club-search i:hover, .club-write i:hover, .write-option:hover {
+	color: #fdb2b5;
+}
+
+.clubboard-item img {
+	width: 470px;
+}
+
+.thisclub {
+	width: 190px;
+	margin-left: 100px;
+}
+
+.thisclub-img {
+	width: 190px;
+	max-height: 190px;
+}
+
+.thisclub-profile button {
+	width: 100%;
+	padding: 5px;
+	border: none;
+	cursor: pointer;
+	background-color: #c0cabf;
+	color: white;
+}
+
+.thisclub-tag {
+	width: 100%;
+}
+
+.thisclub-tag span {
+	font-weight: 600;
+	color: #757575;
+	float: right;
+	padding-right: 5px;
+}
+
+.thisclub-profile button:hover {
+	transition: .2s;
+	background-color: #fdb2b5;
+}
+
+.club-notice {
+	width: 470px;
+	min-height: 74px;
+}
+
+.notice-info {
+	width: 100%;
+	height: 37px;
+	border-bottom: solid #e2e2e2 1px;
+}
+
+.notice-num {
+	width: 30px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #b1b1b1;
+	color: white;
+	font-size: 13px;
+	text-align: center;
+	float: right;
+	padding-top: 2px;
+}
+
+.club-notice a:hover:not (:nth-of-type(1) ) {
+	text-decoration: underline;
+	color: #757575;
+}
+
+.club-notice a:nth-of-type(1):hover span {
+	background-color: #fdb2b5;
+}
+
+.write-img {
+	border: none !important;
+	border-radius: 50%;
+	width: 30px !important;
+	height: 30px !important;
+}
+
+textarea {
+	border: none;
+	width: 100%;
+	height: 300px;
+	padding: 10px 15px;
+	resize: none;
+	border-bottom: #e9ecef solid 1px;
+}
+
+.write-option {
+	height: 40px;
+	border-bottom: solid 1px #e9ecef;
+	cursor: pointer;
+}
+
+.join-title {
+	text-align: center;
+	padding: 10px;
+	font-weight: 700;
+}
+
+.join-title:nth-of-type(2) {
+	text-align: left;
+	border-bottom: #b1b1b1 solid 1px;
+	color: #b1b1b1;
+	font-size: 14px;
+}
+
+.join-btn {
+	background-color: #e2e2e2;
+	margin: auto;
+}
+
+.join-btn:nth-of-type(2) {
+	background-color: #c0cabf;
+}
+
+.join-btn:hover {
+	background-color: white;
+}
+
+.infomodal-img {
+	width: 190px !important;
+	height: 190px !important;
+	border: none !important;
+}
+.thisclub-tag a:hover span {
+	color:#fdb2b5;
+}

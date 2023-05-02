@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.ReplyMapper">
+	<insert id="insert">
+		<selectKey order="AFTER" keyProperty="rno" resultType="long">
+		select last_insert_id()
+		</selectKey>
+		insert into reply (rno, bno, content, writer)
+		values (#{rno}, #{bno}, #{content}, #{writer})
+	</insert>
+	
+	<select id="read" resultMap="replyMap">
+		select
+          r.rno
+        , r.content
+        , r.regdate
+        , (SELECT m.id FROM member m WHERE m.email = r.writer) AS writer
+        , r.writer AS writeremail
+        , r.bno
+        , r.updatedate
+        , a.*
+        from reply r
+        left join attach a on r.writer = a.email
+        where r.rno = #{rno}
+	</select>
+	
+    <resultMap id="replyMap" type="reply">
+        <result property="rno" column="rno" />
+        <result property="bno" column="bno" />
+        <result property="content" column="content" />
+        <result property="regdate" column="regdate" />
+        <result property="updatedate" column="updatedate" />
+        <result property="writer" column="writer" />
+        <result property="writeremail" column="writeremail" />
+        <result property="likecnt" column="likecnt" />
+        <result property="likeOn" column="likeOn" />
+        <collection property="attaches" resultMap="attachMap" />
+    </resultMap>
+
+    <resultMap id="attachMap" type="attach">
+        <result property="email" column="email" />
+        <result property="aname" column="aname" />
+        <result property="path" column="path" />
+        <result property="uuid" column="uuid" />
+        <result property="image" column="image" />
+    </resultMap>	
+	
+	
+	<delete id="delete">
+		delete from reply where rno = #{rno}
+	</delete>
+	
+	<delete id="deleteByBno">
+		delete from reply where bno = #{bno}
+	</delete>
+	
+	<delete id="deleteByBnoRlno">
+		delete replyLike from replyLike left join reply r on r.rno = replyLike.rno where r.bno = #{bno}
+	</delete>
+	
+	<delete id="deleteByRno">
+		delete from replyLike where rno = #{rno}
+	</delete>
+	
+	<delete id="deleteByEmail">
+		delete from reply where writer = #{writer}
+	</delete>
+	
+	<delete id="deleteLikeByEmail">
+		delete from replyLike where id = #{id}
+	</delete>
+	
+	<update id="update">
+	update reply set
+	content = #{content}
+	,updatedate = now()
+	where rno = #{rno}
+	</update>
+	
+	<select id="getList" resultMap="replyMap">
+		select
+          r.rno
+        , r.content
+        , r.regdate
+        , (SELECT m.id FROM member m WHERE m.email = r.writer) AS writer
+        , r.writer AS writeremail
+        , r.bno
+        , r.updatedate
+        , (SELECT COUNT(*) FROM replyLike rl WHERE rl.rno = r.rno) AS likecnt
+        , a.*,
+            case
+                when rl.id is not null and id = #{id} then 1
+                when rl.id is null or id != #{id} then 0
+            end likeOn
+        from reply r
+        left join replyLike rl on r.rno = rl.rno
+        left join attach a on r.writer = a.email
+        where r.bno = #{bno} and r.rno > #{rno}
+        <![CDATA[
+		and rownum() <= 5 order by r.rno
+		]]>
+	</select>
+	
+	<select id="getReplyLike" resultType="replyLike">
+		select rlno, rno, id from replyLike where id = #{id} and rno = #{rno}
+	</select>
+
+	<select id="getLike" resultType="replyLike">
+		select rlno, rno, id from replyLike where id = #{id}
+	</select>
+	
+	<insert id="insertLike">
+		insert into replyLike(rno, id) values (#{rno}, #{id})
+	</insert>
+	
+	<delete id="deleteLike">
+		delete from replyLike where rno = #{rno} and id = #{id}
+	</delete>
+	
+</mapper>

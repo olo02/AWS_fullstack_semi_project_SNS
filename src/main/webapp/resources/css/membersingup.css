@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  transition: 3s;
+}
+
+.container{
+}
+
+.login-container {
+  margin-top: 10%;
+  border-radius: 5px;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  max-width: 50%;
+  margin-bottom: 10%
+}
+
+.ads {
+  background-color: #A569BD;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+.ads h1 {
+  margin-top: 20%;
+}
+
+#fl {
+  font-weight: 600;
+}
+
+#sl {
+  font-weight: 100 !important;
+}
+
+.profile-img {
+  text-align: center;
+}
+
+.profile-img img {
+  border-radius: 50%;
+  /* animation: mymove 2s infinite; */
+}
+
+@keyframes mymove {
+  from {border: 1px solid #F2F3F4;}
+  to {border: 8px solid #F2F3F4;}
+}
+
+.login-detail {
+
+  padding: 15px;
+  border: 1px solid #CCD1D1;
+  border-radius: 5px;
+
+}
+
+.login-form h3 {
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.login-form .bt-sign {
+	background-color : #ffeded;
+	color : #abbcae;
+	font-size : 15px;
+  border-radius: 10px;
+}
+.login-form .forget-password a{
+	color : #abbcae;
+}
+
+.login-detail{
+  padding-top: 60px;
+}
+
+.form-control {
+  font-size: 14px;
+}
+
+.forget-password a {
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.form-group input::placeholder{
+	color: #abbcae;
+}
+
+.bt-signup{
+  text-align: center;
+  margin-top: 10px;
+  border: 1px solid #CCD1D1;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.bt-signup p{
+  font-size: 13px;
+  color: #abbcae;
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.bt-signup button{
+
+  margin-left: 10px;
+  width: 80px;
+  border: 1px solid #abbcae;
+  background-color: white;
+  color: #abbcae;
+  display: inline-block;
+}
+
+
+.row{
+	justify-content: center;
+}
+.login_logo{
+	align-self:center;
+}
+
+.login_warn{
+	margin-top:30px;
+	text-align:center;
+	color: red;
+}
+
+.idCheck1{
+	color: #abbcae;
+	display: none;
+}
+
+.idCheck2{
+	color: red;
+	display: none;
+}
+
+#mail_check_input_box_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_check_input_box_true{
+    background-color:white;
+}
+
+.correct{
+    color : green;
+}
+.incorrect{
+    color : red;
+}
+
+.mail_check_button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mail_check_button .email_inset_box{
+  padding: 5px 10px;
+  font-size: 13px;
+  background-color: white;
+  color: #abbcae;;
+  border: 1px solid #abbcae;
+}

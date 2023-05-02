@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.MemberMapper">
+
+	<!-- 
+		04.05 김민수 : 로그인,회원가입 쿼리 구현
+	 -->
+	 
+	 <select id="getList" resultMap="memberMap">
+		select 
+			m.*,
+			a.* 
+		from member m
+		left join attach a on m.email = a.email
+	 </select>
+	 
+	<select id="get" resultMap="memberMap">
+		select 
+			m.*,
+			a.* 
+		from member m
+		left join attach a on m.email = a.email
+		where m.id = #{id}
+	</select>
+	
+	<select id="getEmail" resultMap="memberMap">
+		select 
+			m.*,
+			a.* 
+		from member m
+		left join attach a on m.email = a.email
+		where m.email = #{email}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="selectOne" resultMap="memberMap">
+		select 
+			m.*,
+			a.* 
+		from member m
+		left join attach a on m.email = a.email
+		where m.email = #{email}
+ 	</select> 
+ 	
+ 	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="member">
+ 		select email from member where id = #{id} and name = #{name}
+ 	</select> 
+ 	
+ 	<!-- 회원가입 -->
+ 	<insert id="register" >
+ 		insert into member(email, id, pw, name) 
+ 		values(#{email}, #{id}, #{pw}, #{name})
+ 	</insert>
+ 	
+ 	<!-- 이메일 중복검사 -->
+     <select id="idCheck" resultType="int">
+         select count(*) from member where email = #{email}
+     </select>
+ 	<!-- 이메일 중복검사 -->
+     <select id="nickCheck" resultType="int">
+         select count(*) from member where id = #{id}
+     </select>
+     
+     <!-- 임시비밀번호 발급 -->
+     <update id="updatePw" >
+     	 update member set pw = #{pw} where email = #{email}
+     </update>
+     <select id="readmember" resultType="member">
+		select * from member where id = #{id} and name = #{name}
+	</select>
+ 	
+ 	<!-- 회원조회 -->
+ 	<select id="searchName" resultMap="memberMap">
+		select 
+			m.*,
+			a.* 
+		from member m
+		left join attach a on m.email = a.email
+		where m.id LIKE CONCAT(CONCAT('%', #{id}),'%')
+	</select>
+
+	<!-- 회원수정 -->
+	<update id="memberUpdate">
+		update member set intro = #{intro}, id = #{id}, name = #{name} where email= #{email}
+	</update>
+ 	
+ 	<resultMap id="memberMap" type="member">
+        <result property="email" column="email" />
+        <result property="pw" column="pw" />
+        <result property="name" column="name" />
+        <result property="id" column="id" />
+        <result property="intro" column="intro" />
+        <result property="status" column="status" />
+        <result property="tel" column="tel" />
+        <result property="addr" column="addr" />
+        <result property="regdate" column="regdate" />
+        <collection property="attaches" resultMap="attachMap" />
+    </resultMap>
+	
+	<resultMap id="attachMap" type="attach">
+        <result property="email" column="email" />
+        <result property="aname" column="aname" />
+        <result property="path" column="path" />
+        <result property="uuid" column="uuid" />
+        <result property="image" column="image" />
+    </resultMap>
+ 	
+ 	<!--비밀번호 수정 -->
+ 	<update id="changePw">
+ 		update member set pw = #{pw} where email = #{email}
+ 	</update>
+ 	
+ 	<delete id="deleteMember">
+ 		delete from member where email = #{email}
+ 	</delete>
+ 	
+</mapper>

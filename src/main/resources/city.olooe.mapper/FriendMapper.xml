@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="city.olooe.mapper.FriendMapper">
+    
+    
+    
+    <insert id="insert">
+    INSERT INTO friend (following,followed)
+        VALUES (#{following},#{followed})
+    </insert>
+    
+    
+    
+    <delete id="delete" >
+    DELETE FROM friend
+WHERE following = #{email} OR followed = #{email}
+    </delete>
+    
+   
+    
+    <!-- 친구 차단 -->
+	<update id="block" >
+		UPDATE friend
+		SET blocked = true
+		WHERE fno = #{fno} AND (following = #{email} OR followed = #{email})
+	</update>
+
+<select id="getFollowers" resultType="map">
+  SELECT m.name as "name", m.id as "id", f.followed as "followed"
+  FROM friend f
+  JOIN member m ON f.followed = m.email
+  WHERE f.following = #{following}
+</select>
+
+
+ <select id="getFollowings" resultType="map">
+  SELECT m.name as "name", m.id as "id", f.following as "following", f.followed
+  FROM friend f
+  JOIN member m ON f.following = m.email
+  WHERE f.followed = #{followed}
+</select>
+	<!-- 언팔로우 4/12 update -> delete로 변경--> 
+	<delete id="unfollow" >
+		DELETE FROM friend
+		WHERE following = #{following} AND followed = #{followed}
+	</delete>
+	
+	<!-- 언팔로잉 -->
+	<delete id="unfollowing" >
+		DELETE FROM friend
+		WHERE followed = #{followed} AND following = #{following}
+	</delete>
+    
+    <select id="selectFriend" resultType="map">   
+
+select following , m.id, m.name, m.email,
+    NVL2((SELECT following FROM friend b WHERE followed = f.following AND b.following = #{followed}), 1, 0) AS followedStatus,
+    NVL2((SELECT following FROM friend b WHERE #{followed} = following  AND b.followed = #{following}), 1, 0) AS meStatus
+from friend f 
+join `member` m on m.email = f.following
+where followed = #{following}
+    </select>
+    
+ 
+  
+<select id="select" resultType="map">
+  select followed , m.id, m.name, m.email,
+    NVL2((SELECT following FROM friend b WHERE followed = f.followed AND b.following = #{followed}), 1, 0) AS followedStatus,
+    NVL2((SELECT following FROM friend b WHERE #{followed} = following  AND b.followed = #{following}), 1, 0) AS meStatus
+from friend f 
+join `member` m on m.email = f.followed
+where following= #{following}
+</select>    
+    
+    
+    
+     <!--  내가 팔로우한 사람의 수  -->
+     <select id="followCount" resultType="int">
+     SELECT COUNT(*) as following_count
+		FROM friend
+		WHERE following = #{email}
+     </select>
+     <!-- 나를 팔로우한 사람의수 -->
+     <select id="followerCount" resultType="int">
+       SELECT COUNT(*) as follower_count
+		FROM friend
+		WHERE followed = #{email}
+     </select>
+     
+     <select id= "check" resultType="map">
+
+
+SELECT m.id, m.name, m.email, IFNULL(COUNT(f.followed), 0) AS followedStatus
+FROM member m
+LEFT JOIN friend f ON m.email = f.followed AND f.following = #{following} AND f.followed = #{followed}
+WHERE m.email = #{followed}
+GROUP BY m.email;
+     </select>
+     
+    </mapper>

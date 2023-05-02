@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.ClubMapper">
+
+	<insert id="insert">
+		<selectKey order="AFTER" keyProperty="cno" resultType="long">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into club (cname, intro, cleader, town, status, question) values (#{cname}, #{intro}, #{cleader}, #{town}, #{status}, #{question})
+	</insert>
+	
+	<select id="read" resultMap="clubMap">
+		select 
+			c.*, 
+			(select count(*) from clubmember cm join club c on c.cno = cm.club where c.cno = #{cno}) membercnt,
+			a.*
+		from club c
+		left join attach a on c.cno = a.cno
+		where c.cno = #{cno}
+	</select>
+	
+	<select id="getList" resultMap="clubMap">
+		select c.*, a.*
+		from club c 
+		left join attach a on c.cno = a.cno
+	</select>
+
+	<select id="getListByEmail" resultMap="clubMap">
+		select c.*, a.*
+		from club c
+		left join attach a on c.cno = a.cno
+		where cleader = #{email}
+	</select>
+	
+	<select id="getMyClubList" resultMap="clubMap">
+		select 
+			c.*, 
+			a.* 
+		from club c
+		left join attach a on c.cno = a.cno 
+		left join clubmember cm on c.cno = cm.club 
+		where cm.`member` = #{email} 
+	</select>
+	
+	
+	<resultMap id="clubMap" type="club">
+        <result property="cno" column="cno" />
+        <result property="cname" column="cname" />
+        <result property="intro" column="intro" />
+        <result property="cleader" column="cleader" />
+        <result property="town" column="town" />
+        <result property="status" column="status" />
+        <result property="regdate" column="regdate" />
+        <result property="question" column="question" />
+        <result property="membercnt" column="membercnt" />
+        <collection property="attaches" resultMap="attachMap" />
+    </resultMap>
+	
+	<resultMap id="attachMap" type="attach">
+        <result property="cno" column="cno" />
+        <result property="aname" column="aname" />
+        <result property="path" column="path" />
+        <result property="uuid" column="uuid" />
+        <result property="image" column="image" />
+    </resultMap>
+	
+	<select id="searchName" resultMap="clubMap">
+		select c.*, a.* 
+		from club c
+		left join attach a on c.cno = a.cno 
+		where c.cname LIKE CONCAT(CONCAT('%', #{keyword}),'%')
+	</select>
+
+	<select id="searchKeyword">
+		select distinct c.town from club c
+		where c.town like CONCAT(CONCAT('%', #{keyword}),'%')
+	</select>
+
+	<select id="searchTown" resultType="club">
+		select * from club c 
+		where c.town = #{town}
+	</select>
+	
+	<update id="update">
+		update club set cname = #{cname}, intro = #{intro}, town = #{town}, status = #{status}, question = #{question} where cno = #{cno}
+	</update>
+	
+	<!-- 클럽 삭제 -->
+	<delete id="delete">
+		delete from club where cno = #{cno}
+	</delete>
+
+	<!-- 클럽장이 회원탈퇴시 클럽 삭제 -->
+	<delete id="deleteLeader">
+		delete from club where cleader = #{cleader}
+	</delete>
+
+	<delete id="deleteCRLByEmail">
+		delete replyLike from replyLike left join reply r on r.rno = replyLike.rno left join board b on b.bno = r.bno left join club on club.cno = b.category where cleader = #{email}
+	</delete>
+
+	<delete id="deleteCRByEamil">
+		delete reply from reply left join board b on b.bno = reply.bno left join club on club.cno = b.category where cleader = #{email}
+	</delete>
+	<delete id="deleteCBAByEmail">
+		delete attach from attach left join board b on b.bno = attach.bno left join club c on c.cno = attach.cno where cleader = #{email}
+	</delete>
+	<delete id="deleteCMByEmail">
+		delete clubmember from clubmember left join club c on c.cno = clubMember.club where c.cleader = #{email}
+	</delete>
+	<delete id="deleteCNByEmail">
+		delete notification from notification join club on club.cno = notification.cno where club.cleader = #{email}
+	</delete>
+	<delete id="deleteCBLByEmail">
+		delete boardLike from boardLike join board b on b.bno = boardLike.bno join club on cno = category where cleader = #{email}
+	</delete>
+	<delete id="deleteCBByEmail">
+		delete board from board join club on cno = category where club.cleader = #{email}
+	</delete>
+
+
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.MessageMapper">
+
+    <resultMap id="messageMap" type="message">
+        <result property="mno" column="mno" />
+        <result property="receiver" column="receiver" />
+        <result property="sender" column="sender" />
+        <result property="message" column="message" />
+        <result property="sdate" column="sdate" />
+        <result property="rdate" column="rdate" />
+        <result property="room" column="room" />
+        <collection property="rattaches" resultMap="receiverAttachMap" />
+        <collection property="sattaches" resultMap="senderAttachMap" />
+    </resultMap>
+
+    <resultMap id="receiverAttachMap" type="attach">
+        <result property="email" column="remail" />
+        <result property="aname" column="raname" />
+        <result property="path" column="rpath" />
+        <result property="uuid" column="ruuid" />
+        <result property="image" column="rimage" />
+    </resultMap>
+
+    <resultMap id="senderAttachMap" type="attach">
+        <result property="email" column="semail" />
+        <result property="aname" column="saname" />
+        <result property="path" column="spath" />
+        <result property="uuid" column="suuid" />
+        <result property="image" column="simage" />
+    </resultMap>
+
+	<select id="selectOne" resultMap="messageMap">
+		SELECT 
+			m.*,
+			ra.email AS remail,
+            ra.aname AS raname,
+            ra.uuid AS ruuid,
+            ra.path AS rpath,
+            ra.image AS rimage, 
+			sa.email AS semail,
+            sa.aname AS saname,
+            sa.uuid AS suuid,
+            sa.path AS spath,
+            sa.image AS simage 
+		FROM message m
+		left join attach ra on m.receiver = ra.email
+		left join attach sa on m.sender = sa.email
+		WHERE mno = #{mno}
+	</select>
+
+	<select id="chat" resultMap="messageMap">
+		SELECT 
+			m.*,
+			ra.email AS remail,
+            ra.aname AS raname,
+            ra.uuid AS ruuid,
+            ra.path AS rpath,
+            ra.image AS rimage, 
+			sa.email AS semail,
+            sa.aname AS saname,
+            sa.uuid AS suuid,
+            sa.path AS spath,
+            sa.image AS simage 
+		FROM message m
+		left join attach ra on m.receiver = ra.email
+		left join attach sa on m.sender = sa.email
+		WHERE mno > 0 
+		AND (SENDER = #{sender} AND RECEIVER = #{receiver} OR SENDER = #{receiver} AND RECEIVER = #{sender})
+		order by mno
+	</select>
+	
+	<select id="chatOfRoom" resultMap="messageMap">
+		SELECT 
+			m.*,
+			ra.email AS remail,
+            ra.aname AS raname,
+            ra.uuid AS ruuid,
+            ra.path AS rpath,
+            ra.image AS rimage, 
+			sa.email AS semail,
+            sa.aname AS saname,
+            sa.uuid AS suuid,
+            sa.path AS spath,
+            sa.image AS simage 
+		FROM message m
+		left join attach ra on m.receiver = ra.email
+		left join attach sa on m.sender = sa.email
+		where mno > 0 
+		and room = #{room} 
+		order by mno;
+	</select>
+	
+	<insert id="insert">
+		<selectKey order="AFTER" keyProperty="mno" resultType="long">
+		select LAST_INSERT_ID()
+		</selectKey>
+		insert into message (receiver, sender, message, room) 
+		values (
+			#{receiver},
+			#{sender},
+			#{message},
+			(select max(m.room) from message m 
+				where(m.sender = #{sender} and m.receiver = #{receiver})
+				or (m.sender = #{receiver} and m.receiver = #{sender})
+			)
+		)
+	</insert>
+	
+	<update id="setRoom">
+		update message set room = #{room}
+		where mno = #{mno}
+	</update>
+	
+	<update id="messageCheck">
+		UPDATE message SET RDATE = now() WHERE mno = #{mno}
+	</update>
+
+	<update id="updateBySender">
+		update message set sender = '탈퇴된 회원입니다' where sender = #{email}
+	</update>
+
+	<update id="updateByReceiver">
+		update message set receiver = '탈퇴된 회원입니다' where receiver = #{email}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM message WHERE mno = #{mno}
+	</delete>
+	
+	<delete id="deleteRoom">
+		delete from message where room = #{room}
+	</delete>
+	
+	<select id="uncheckedList" resultMap="messageMap">
+		SELECT 
+			m.*,
+			ra.email AS remail,
+            ra.aname AS raname,
+            ra.uuid AS ruuid,
+            ra.path AS rpath,
+            ra.image AS rimage, 
+			sa.email AS semail,
+            sa.aname AS saname,
+            sa.uuid AS suuid,
+            sa.path AS spath,
+            sa.image AS simage 
+		FROM message m
+		left join attach ra on m.receiver = ra.email
+		left join attach sa on m.sender = sa.email
+		where mno > 0 
+		and receiver = #{receiver} 
+		and sender = #{sender} 
+		and rdate is null 
+		order by mno desc
+	</select>
+	
+</mapper>

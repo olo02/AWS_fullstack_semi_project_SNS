@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.MessageRoomMapper">
+
+	<select id="selectRoom" resultType="messageroom">
+		select * from messageroom where mrno = #{mrno}
+	</select>
+
+	<insert id="insert">
+		<selectKey order="AFTER" keyProperty="mrno" resultType="long">
+		select LAST_INSERT_ID()
+		</selectKey>			
+		insert into messageroom values()
+	</insert>
+
+	<update id="update">
+		update messageroom set name = #{name} where mrno = #{mrno}
+	</update>
+
+	<delete id="delete">
+		delete from messageroom where mrno = #{mrno}
+	</delete>
+	
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.NotificationMapper">
+
+    <insert id="insert">
+        insert into notification (sender, receiver, type, bno, cno) values (#{sender}, (select email from member where id = #{receiver}), #{type}, #{bno}, #{cno})
+    </insert>
+
+    <update id="update">
+        update notification set rdate = now() where nno = #{nno}
+    </update>
+
+    <delete id="deleteByBno">
+        delete from notification where bno = #{bno}
+    </delete>
+
+    <delete id="deleteByEmail">
+        delete from notification where sender = #{email} and receiver = #{email}
+    </delete>
+
+    <delete id="deleteByCno">
+        delete from notification where cno = #{cno}
+    </delete>
+
+    <select id="noticnt" resultType="java.lang.Integer">
+        select count(*) from notification where receiver = #{email}
+    </select>
+
+    <select id="uncheckedList" resultType="notification">
+        select nno, (SELECT id FROM member WHERE email = n.sender) sender, n.sender senderEmail, (select id from member where email = n.receiver) receiver, type, sdate, rdate, bno, cno from notification n where receiver = #{email} and rdate is null order by sdate desc
+    </select>
+</mapper>

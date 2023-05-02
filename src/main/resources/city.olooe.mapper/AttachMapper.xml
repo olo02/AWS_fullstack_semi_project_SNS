@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="city.olooe.mapper.AttachMapper">
+
+    <insert id="insert">
+        insert into attach(aname, path, uuid, image, bno, cno, email) values(#{aname}, #{path}, #{uuid}, #{image}, #{bno}, #{cno}, #{email})
+    </insert>
+
+	<update id="updateByEmail">
+		update attach set aname = #{aname}, path = #{path}, uuid = #{uuid}, image = #{image} where email = #{email}
+	</update>
+
+	<update id="updateByCno">
+		update attach set aname = #{aname}, path = #{path}, uuid = #{uuid}, image = #{image} where cno = #{cno}
+	</update>
+
+    <delete id="delete">
+        delete from attach where uuid = #{uuid}
+    </delete>
+
+    <delete id="deleteByBno">
+        delete from attach where bno = #{bno}
+    </delete>
+
+    <delete id="deleteByCno">
+        delete from attach where cno = #{cno}
+    </delete>
+
+    <delete id="deleteBAByEmail">
+        delete attach from attach join board b on b.bno = attach.bno where writer = #{email}
+    </delete>
+    
+    <delete id="deleteByEmail">
+    	delete from attach where email = #{email}
+    </delete>
+
+    <select id="findBy" resultType="attach">
+        select * from attach where bno = #{bno}
+    </select>
+    
+    <select id="findByCno" resultType="attach">
+        select * from attach where cno = #{cno}
+    </select>
+    
+    <select id="findByEmail" resultType="attach">
+        select * from attach where email = #{email}
+    </select>
+</mapper>

@@ -34,15 +34,13 @@ For building and running the application you need:
 
 - [Java 1.8](https://www.oracle.com/java/technologies/downloads/#java17)
 - <details markdown="1">
-    <summary>DataBase 연결 - application-datasource.yml 추가</summary>
+    <summary>DataBase 연결 - jdbc.properties 추가</summary>
 
   ```
-  spring:
-      datasource:
-          driver-class-name: org.mariadb.jdbc.Driver
-      username: 계정이름
-      password: 계정비밀번호
-      url: 계정url
+  db.classname=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  db.url=데이터베이스URL
+  db.username=유저이름
+  db.password=패스워드
   ```
 
     </details>

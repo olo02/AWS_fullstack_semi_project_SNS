@@ -1,4 +1,4 @@
-# Instagram Clone Application, DamSo SNS - Java/CLI
+# Instagram Clone Application, DamSo SNS - Spring/JSP
 
 <div align="center">
 <img width="150" alt="image" src="https://github.com/olo02/AWS_fullstack_semi_project_SNS/assets/121186383/3308b340-d071-40ce-8532-55d97364bc8a">

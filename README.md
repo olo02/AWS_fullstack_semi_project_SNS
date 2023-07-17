@@ -95,7 +95,7 @@ $ git clone https://github.com/olo02/AWS_fullstack_semi_project_SNS.git
 ### ERD
 
 <div align="center">
-<img width="400" alt="image" src="https://github.com/olo02/AWS_fullstack_semi_project_SNS/assets/121186383/ca6e13bb-95e7-41c6-a8f8-909c0dfc0b8f">
+<img width="700" alt="image" src="https://github.com/olo02/AWS_fullstack_semi_project_SNS/assets/121186383/ca6e13bb-95e7-41c6-a8f8-909c0dfc0b8f">
 </div>
 
 ---
@@ -198,11 +198,11 @@ $ git clone https://github.com/olo02/AWS_fullstack_semi_project_SNS.git
 
 ## 프로젝트 후기
 
-```
-비동기 방식 및 spring에 대한 구현 경험이 적어 부담도 느꼈지만, 오히려 부족한 부분을 채울 수 있었습니다.
+
+> 비동기 방식 및 spring에 대한 구현 경험이 적어 부담도 느꼈지만, 오히려 부족한 부분을 채울 수 있었습니다.
 설계한 모든 기능을 구현할 수는 없었기에 아쉽지만,
 다대다 테이블 관계와 비동기 방식 및 웹 소켓에 대한 이해도를 높일 수 있었고 팀 프로젝트에서의 협업 등 전체적으로 폭넓게 성장할 수 있었습니다.
-```
+
 
 <br>
 

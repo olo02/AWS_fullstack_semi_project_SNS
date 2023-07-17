@@ -186,11 +186,11 @@ $ git clone https://github.com/olo02/AWS_fullstack_semi_project_SNS.git
 |                     [@seolha86](https://github.com/seolha86)                     |   @hyunmin    |              [@KimMinSoocoding](https://github.com/KimMinSoocoding)               |
 |                        - 게시글 서비스 <br> - 알림 서비스                        | - 댓글 서비스 |                                   - 회원 서비스                                   |
 
-|                                                               천은경                                                               |    강태수     |     |
-| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------: | :-: |
-| <img height="160px" src="https://user-images.githubusercontent.com/121186383/242636171-4e873ee3-bb3e-4961-806a-2f960c7210d1.jpg"/> |               |     |
-|                                                 [@olo02](https://github.com/olo02)                                                 |    @taesu     |     |
-|                                                  - 모임 서비스 <br> - 채팅 서비스                                                  | - 친구 서비스 |     |
+|                                                               천은경                                                               |    강태수     |     
+| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------: |
+| <img height="160px" src="https://user-images.githubusercontent.com/121186383/242636171-4e873ee3-bb3e-4961-806a-2f960c7210d1.jpg"/> |               |     
+|                                                 [@olo02](https://github.com/olo02)                                                 |    @taesu     |     
+|                                                  - 모임 서비스 <br> - 채팅 서비스                                                  | - 친구 서비스 |     
 
 </div>
 

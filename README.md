@@ -3,6 +3,8 @@
 <div align="center">
 <img width="150" alt="image" src="https://github.com/olo02/AWS_fullstack_semi_project_SNS/assets/121186383/3308b340-d071-40ce-8532-55d97364bc8a">
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Folo02%2FAWS_fullstack_semi_project_SNS&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 [데모 사이트 바로가기](http://damso.olooe.city)
 
 </div>
